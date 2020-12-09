@@ -1,5 +1,7 @@
 # pybitbay
 
+[![Build Status](https://github.com/dominikheinisch/pybitbay/workflows/Python%20package/badge.svg)](https://github.com/dominikheinisch/pybitbay/actions?query=workflow%3A"Python+package")
+
 ## Introduction
 
 Unofficial API for Bitbay cryptocurrency exchange
