@@ -10,30 +10,40 @@ Simple interface for collection public data.
 
 ## Installation
     
-    TODO
+    -e git+https://github.com/dominikheinisch/pybitbay@#egg=pybitbay                         # HEAD
+    -e git+https://github.com/dominikheinisch/pybitbay@v0.0.1#egg=pybitbay                   # v0.0.1
+    pip3 show pybitbay
 
 ## Requirements
 
 * Python 3.5+
 * Requires Requests, Pandas
 
-## API
+## BitBay API
 
-pulls data from bitbay, eg. https://bitbay.net/API/Public/btcpln/trades.json?since=0
+### Data pulling
 
-### Connect to BitBay
+Getting single batch for ticker: 'btcpln', since transaction id (tid): 1234.
+Returns pandas.DataFrame with data from https://bitbay.net/API/Public/btcpln/trades.json?since=1234
 
-    TODO
+    from pybitbay import BitBayAPI
+
+    df = BitBayAPI().get_trades(ticker='btcpln', since=1234)
+
+Getting batch by batch (generator) of all trades, for ticker: 'btcpln', since transaction id (tid): -1, to the newest trade:
+
+    from pybitbay import BitBayAPI
+
+    for df in BitBayAPI().get_all_trades(ticker='btcpln', since=-1):
+        print(df)
 
 ## Contribution
 
 ### Installation
-    
+
     pip3 install -r requirements.txt
     pip3 install -e .
-    pip3 show bitbay-api
 
 ### Testing
 
-    python3 -m pytest -vs
-
+    pytest -vs
