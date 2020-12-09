@@ -4,6 +4,10 @@ from typing import Generator
 
 
 class BitbayApi:
+    URL = 'https://bitbay.net/API/Public/'
+    TRADES_SUFFIX = '/trades.json'
+    SINCE = '?since='
+
     def get_all_trades(self, ticker: str, since: int = -1) -> Generator[pd.DataFrame, int, None]:
         '''
         :param ticker: eg. 'btcpln'
@@ -30,5 +34,5 @@ class BitbayApi:
                 Name: amount, dtype: float64
                 Name: tid, dtype: object
         '''
-        trades = Session().get(f'https://bitbay.net/API/Public/{ticker}/trades.json?since={since}').json()
-        return pd.json_normalize(trades)
+        trades = Session().get(f'{self.URL}{ticker}{self.TRADES_SUFFIX}{self.SINCE}{since}')
+        return pd.json_normalize(trades.json())
