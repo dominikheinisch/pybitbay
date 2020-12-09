@@ -3,7 +3,7 @@ from requests import Session
 from typing import Generator
 
 
-class BitbayApi:
+class BitBayAPI:
     URL = 'https://bitbay.net/API/Public/'
     TRADES_SUFFIX = '/trades.json'
     SINCE = '?since='
