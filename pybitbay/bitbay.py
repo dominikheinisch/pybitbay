@@ -1,12 +1,26 @@
 import pandas as pd
 from requests import Session
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 from typing import Generator
 
 
 class BitBayAPI:
-    URL = 'https://bitbay.net/API/Public/'
+    BASE_URL = 'https://bitbay.net/API/Public/'
     TRADES_SUFFIX = '/trades.json'
-    SINCE = '?since='
+    SINCE_SUFFIX = '?since='
+
+    def __init__(self):
+        retry_strategy = Retry(
+            total=1,
+            status_forcelist=[429, 500, 502, 503, 504],
+            method_whitelist=['GET'],
+        )
+        self._http = Session()
+        self._http.mount(
+            prefix='https://',
+            adapter=HTTPAdapter(max_retries=retry_strategy)
+        )
 
     def get_all_trades(self, ticker: str, since: int = -1) -> Generator[pd.DataFrame, int, None]:
         '''
@@ -34,5 +48,8 @@ class BitBayAPI:
                 Name: amount, dtype: float64
                 Name: tid, dtype: object
         '''
-        trades = Session().get(f'{self.URL}{ticker}{self.TRADES_SUFFIX}{self.SINCE}{since}')
-        return pd.json_normalize(trades.json())
+        response = self._http.get(
+            url=f'{self.BASE_URL}{ticker}{self.TRADES_SUFFIX}{self.SINCE_SUFFIX}{since}',
+            timeout=3,
+        )
+        return pd.json_normalize(response.json())

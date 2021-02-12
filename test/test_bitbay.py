@@ -36,6 +36,5 @@ def test_BitBayAPI(mocker):
 
 def test_bitbay_public_api():
     df = BitBayAPI().get_trades(ticker=TICKER, since=-1)
-    print(COLUMNS)
     assert list(COLUMNS) == df.columns.tolist()
     assert df[0:2].equals(EXPECTED_DF)

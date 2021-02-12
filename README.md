@@ -11,12 +11,12 @@ Simple interface for collection public data.
 ## Installation
     
     -e git+https://github.com/dominikheinisch/pybitbay@#egg=pybitbay                         # HEAD
-    -e git+https://github.com/dominikheinisch/pybitbay@v0.0.1#egg=pybitbay                   # v0.0.1
+    -e git+https://github.com/dominikheinisch/pybitbay@v0.1.0#egg=pybitbay                   # v0.1.0
     pip3 show pybitbay
 
 ## Requirements
 
-* Python 3.5+
+* Python 3.6+
 * Requires Requests, Pandas
 
 ## BitBay API
