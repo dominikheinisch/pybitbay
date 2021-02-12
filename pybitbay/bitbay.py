@@ -12,7 +12,7 @@ class BitBayAPI:
 
     def __init__(self):
         retry_strategy = Retry(
-            total=1,
+            total=5,
             status_forcelist=[429, 500, 502, 503, 504],
             method_whitelist=['GET'],
         )
