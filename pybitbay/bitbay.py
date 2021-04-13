@@ -28,11 +28,9 @@ class BitBayAPI:
         :param since: (first trade's id (tid) in a batch) - 1
         :return: Generator[pd.DataFrame, int, None]
         '''
-        df = self.get_trades(ticker, since)
-        while not df.empty:
+        while not (df := self.get_trades(ticker, since)).empty:
             since += len(df)
             yield df
-            df = self.get_trades(ticker, since)
 
     def get_trades(self, ticker: str, since: int) -> pd.DataFrame:
         '''

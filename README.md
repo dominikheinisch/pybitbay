@@ -16,7 +16,7 @@ Simple interface for collection public data.
 
 ## Requirements
 
-* Python 3.6+
+* Python >=3.8
 * Requires Requests, Pandas
 
 ## BitBay API
